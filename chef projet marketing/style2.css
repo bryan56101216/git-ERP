@@ -1,0 +1,338 @@
+
+
+        /* Sidebar */
+        .sidebar {
+        width: 250px;
+        background-color:  #2d3748;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        }
+
+        .sidebar h2 {
+        margin: 0 0 2rem;
+        font-size: 1.5rem;
+        text-align: center;
+        }
+        .budget-indicator {
+                background: #1abc9c;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 25px;
+                font-weight: 600;
+            }
+
+        /* Sections dynamiques */
+        .content-section {
+        display: none;
+        }
+
+        .content-section.active {
+        display: block;
+        }
+
+        .dashboard-content h2 {
+        margin-top: 0;
+        color: #2b6cb0;
+        }
+        .blocEquipe {
+        max-width: 1100px;
+        margin: 30px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .enteteEquipe {
+        text-align: center;
+        margin-bottom: 25px;
+        }
+
+        .enteteEquipe h2 {
+        font-size: 24px;
+        color: #333;
+        }
+
+        .grilleMembres {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 20px;
+        }
+
+        .personneBloc {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .personneBloc h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        color: #444;
+        }
+
+        .listeMissions {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 10px;
+        }
+
+        .listeMissions li {
+        background: #e6f0ff;
+        padding: 8px;
+        margin-bottom: 8px;
+        border-radius: 6px;
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+
+        .listeMissions li button {
+        background: #ff5c5c;
+        border: none;
+        color: #fff;
+        padding: 3px 7px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        }
+
+        .formMission {
+        display: flex;
+        gap: 5px;
+        }
+
+        .formMission input {
+        flex: 1;
+        padding: 6px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        width: 20%;
+        }
+
+        .formMission button {
+        background: #1abc9c;
+        border: none;
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 6px;
+        width: 40%;
+        cursor: pointer;
+        font-size: 13px;
+        }
+        .zone-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+ 
+    }
+
+    .client-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+    }
+
+    .client-card {
+    background: #f4f6fb;
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .client-card h3 {
+    margin: 0;
+    font-size: 18px;
+    }
+
+    .btn-report {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #1abc9c;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    }
+    .btn-report:hover {
+    background: #16a085;
+    }
+
+    .feedback-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    }
+
+    .feedback-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    border-left: 5px solid #4a6cf7;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .feedback-card p {
+    margin: 0 0 10px;
+    }
+
+    .btn-validate {
+    background: #1abc9c;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    margin-right: 5px;
+    }
+    .btn-validate:hover { background: #16a085; }
+
+    .btn-reject {
+    background: #dc3545;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    }
+    .btn-reject:hover { background: #b52a37; }
+    .budget-section {
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        margin-top: 20px;
+    }
+
+    .budget-section h2 {
+        text-align: center;
+        margin-bottom: 15px;
+        color: #4a148c;
+    }
+
+    .budget-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15px;
+    }
+
+    .budget-table th, .budget-table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .budget-table th {
+        background: #f3e5f5;
+        color: #4a148c;
+    }
+
+    .update-btn {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 6px;
+        background: #1abc9c;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .update-btn:hover {
+        background: #16a085;
+    }
+
+    .budget-total {
+        text-align: right;
+        font-size: 18px;
+        color: #2e7d32;
+    }
+    .rapport-section {
+    background: #fff;
+    padding: 20px 70px 20px 70px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    }
+
+    .rapport-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #4a148c;
+    }
+
+    .rapport-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    }
+
+    .rapport-form input, .rapport-form select, .rapport-form button {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    }
+
+    .rapport-form button {
+    background: #1abc9c;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    }
+
+    .rapport-form button:hover {
+    background: #16a085;
+    }
+
+    .rapport-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    }
+
+    .rapport-card {
+    border: 1px solid #ddd;
+    border-left: 5px solid #7e57c2;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    }
+
+    .rapport-info {
+    flex: 1;
+    }
+
+    .rapport-info p {
+    margin: 5px 0;
+    }
+
+    .rapport-actions button {
+    margin-left: 5px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    }
+
+    .edit-btn {
+    background: #ffc107;
+    color: #fff;
+    }
+
+    .edit-btn:hover { background: #e0a800; }
+
+    .delete-btn {
+    background: #dc3545;
+    color: #fff;
+    }
+
+    .delete-btn:hover { background: #b52a37; }
+    

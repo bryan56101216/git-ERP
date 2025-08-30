@@ -1,0 +1,203 @@
+ * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: rgb(237, 234, 234);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .signup-form {
+      background-color: white;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 350px; /* largeur max adaptée */
+    }
+
+    .signup-form h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #1abc9c;
+    }
+
+    label {
+      font-size: 15px;
+      margin-top: 15px;
+      display: block;
+      opacity: 0.7;
+    }
+    input[type="email"],
+    input[type="number"],
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 14px;
+      background-color: rgb(245, 245, 245);
+      transition: 0.3s;   
+    }  
+   
+
+    input:focus,select:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+      background-color: white;
+    }
+
+    .checkbox-label {
+      font-size: 13px;
+      margin-top: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      opacity: 0.8;
+      line-height: 1.4;
+    }
+
+    .checkbox-label input {
+      margin-top: 2px;
+      accent-color: #1abc9c;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      background-color: #1abc9c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0e8a71;
+    }
+
+    .terms {
+      font-size: 12px;
+      text-align: center;
+      opacity: 0.8;
+      margin-top: 15px;
+    }
+
+    .terms a {
+      color: #1abc9c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .terms a:hover {
+      text-decoration: underline;
+    }
+
+    /* 📱 Responsif */
+    @media (max-width: 768px) {
+      .signup-form {
+        padding: 25px 20px;
+        max-width: 45%;
+      }
+
+      .signup-form h1 {
+        font-size: 24px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 12px;
+      }
+    }
+      @media (max-width: 554px) {
+      .signup-form {
+        padding: 25px 20px;
+        max-width: 60%;
+      }
+
+      .signup-form h1 {
+        font-size: 24px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 12px;
+      }
+    }
+    
+
+    @media (max-width: 480px) {
+      body {
+        align-items: flex-start; /* formulaire commence en haut */
+        padding: 10px;
+      }
+
+      .signup-form {
+        padding: 20px 15px;
+        max-width: 70%;
+      }
+
+      .signup-form h1 {
+        font-size: 20px;
+      }
+
+      label {
+        font-size: 13px;
+      }
+
+      input {
+        font-size: 13px;
+        padding: 10px;
+      }
+
+      button {
+        font-size: 15px;
+        padding: 10px;
+      }
+    }
+      @media (max-width: 345px) {
+      body {
+        align-items: flex-start; /* formulaire commence en haut */
+        padding: 10px;
+      }
+
+      .signup-form {
+        padding: 20px 15px;
+        max-width: 90%;
+      }
+
+      .signup-form h1 {
+        font-size: 20px;
+      }
+
+      label {
+        font-size: 13px;
+      }
+
+      input {
+        font-size: 13px;
+        padding: 10px;
+      }
+
+      button {
+        font-size: 15px;
+        padding: 10px;
+      }
+    }
