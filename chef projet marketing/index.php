@@ -3,7 +3,44 @@ session_start();
 if (!$_SESSION['nom']) {
     header("Location: ../index.php");
 }
+require("../Authentifier/projet.php");
+$Projet=afficher();
 
+
+
+
+require("../Authentifier/bd.php");
+$clients = $access->query("SELECT nom FROM utilisateurs WHERE titre = 'client'")->fetchAll(PDO::FETCH_ASSOC);
+require("../Authentifier/bd.php");
+if(isset($_POST['valider'])){ 
+$nomRapport = $_POST['rapportName'];
+$projet     = $_POST['rapportProject'];
+$clients    = $_POST['rapportClients'];
+$fichier    = "";
+
+// --- Gestion de l’upload du fichier ---
+if (isset($_FILES['rapportFile']) && $_FILES['rapportFile']['error'] == 0) {
+    $uploadDir = "uploads/";
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
+
+    $fileName = time() . "_" . basename($_FILES['rapportFile']['name']);
+    $targetFile = $uploadDir . $fileName;
+
+    if (move_uploaded_file($_FILES['rapportFile']['tmp_name'], $targetFile)) {
+        $fichier = $fileName;
+    }
+}
+
+// --- Insertion dans la base ---
+$sql = "INSERT INTO rapportprojet (nomRapport,nomProjet,nomClient,fichierRapport) VALUES (?,?,?,?)";
+$stmt = $access->prepare($sql);
+$stmt->execute([$nomRapport,$projet,$clients,$fichier]);
+$message = "Le rapport a été enregistré avec succès.";
+
+
+}
 ?>
 <!DOCTYPE html>
     <html lang="fr">
@@ -12,8 +49,8 @@ if (!$_SESSION['nom']) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chef de Projet Daschboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style1.css">
+  
     </head>
         <body>
 
@@ -34,10 +71,10 @@ if (!$_SESSION['nom']) {
         </div>
 
         <!-- Main Content -->
-    <div class="main-content">
+     <div class="main-content">
             <!-- Dashboard Section -->
-        <div id="dashboard" class="content-section active">
-            <div class="header">
+         <div id="dashboard" class="content-section active">
+             <div class="header">
                 <div class="header-left">
                 <h1>Dashboard Chef de Projet</h1>
                 <p>Mardi 19 Août, 2025</p>
@@ -65,7 +102,7 @@ if (!$_SESSION['nom']) {
                     <div style="font-size: 0.8rem; color: #718096;"><?php echo $_SESSION['titre']; ?></div>
                     </div>
                 </div>
-                </div>
+             
             </div>
             <div class="dashboard-content">
                 <div class="stats-grid">
@@ -81,7 +118,7 @@ if (!$_SESSION['nom']) {
                             
                             <div class="stat-card">
                                 <div class="stat-header">
-                                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                                    <div class="stat-icon" style="background: linear-gradient(135deg, #4fd1c7, #38b2ac);">
                                         <i class="fas fa-users"></i>
                                     </div>
                                 </div>
@@ -91,7 +128,7 @@ if (!$_SESSION['nom']) {
                             
                             <div class="stat-card">
                                 <div class="stat-header">
-                                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                                    <div class="stat-icon" style="background: linear-gradient(135deg,#4fd1c7, #38b2ac);">
                                         <i class="fas fa-clock"></i>
                                     </div>
                                 </div>
@@ -101,7 +138,7 @@ if (!$_SESSION['nom']) {
                             
                             <div class="stat-card">
                                 <div class="stat-header">
-                                    <div class="stat-icon" style="background: linear-gradient(135deg, #ffeaa7, #fab1a0);">
+                                    <div class="stat-icon" style="background: linear-gradient(135deg,#4fd1c7, #38b2ac);">
                                         <i class="fas fa-franc-sign"></i>
                                     </div>
                                 </div>
@@ -138,88 +175,56 @@ if (!$_SESSION['nom']) {
                             </div>
                             
                             <div class="project-list">
+                                <?php foreach($Projet as $projet): ?>
                                 <div class="project-item">
                                     <div class="project-header">
-                                        <div class="project-name">Campagne Digitale - TechCorp</div>
-                                        <div class="project-status status-active">En cours</div>
+                                        <div class="project-name"><?= $projet->nomProjet ?></div>
+                                        <div class="project-status status-active"><?= $projet->statut ?></div>
                                     </div>
                                     <div class="project-progress">
                                         <div class="progress-bar">
                                             <div class="progress-fill" style="width: 75%;"></div>
                                         </div>
-                                        <div class="progress-text">75% complété • Deadline: 30 Août</div>
+                                        <div class="progress-text">75% complété • Deadline: <?= $projet->date ?></div>
                                     </div>
                                 </div>
-                                
-                                <div class="project-item">
-                                    <div class="project-header">
-                                        <div class="project-name">Refonte Site Web - StartupXYZ</div>
-                                        <div class="project-status status-pending">En attente</div>
-                                    </div>
-                            
-                                </div> 
+                                  <?php endforeach;  ?>
                                 
                             </div>
                         </div>        
                     
+         
                     
             </div>
         </div>
             <!-- Projects Section -->
-        <div id="projects" class="content-section">
+       <div id="projects" class="content-section">
             <div class="dashboard-content">
                 <div class="projects-section">
-                            <div class="section-header1" style="width: 1100px;text-align: center;margin-bottom: 3%;">
-                                <h2 class="section-title"><h2  style="color: black;">Projets en Cours</h2></h2>
-                            
+                    <div class="section-header1" style="width: 1100px;text-align: center;margin-bottom: 3%;">
+                        <h2 class="section-title" style="color: black;">Projets en Cours</h2>
+                    </div>
+                    
+                    <div class="project-list">
+                         <?php foreach($Projet as $projet): ?>
+                        <div class="project-item">
+                            <div class="project-header">
+                                <div class="project-name"><?= $projet->nomProjet ?></div>
+                                <div class="project-status status-active"><?= $projet->statut ?>s</div>
                             </div>
-                            
-                            <div class="project-list">
-                                <div class="project-item">
-                                    <div class="project-header">
-                                        <div class="project-name">Campagne Digitale - TechCorp</div>
-                                        <div class="project-status status-active">En cours</div>
-                                    </div>
-                                    <div class="project-progress">
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 75%;"></div>
-                                        </div>
-                                        <div class="progress-text">75% complété • Deadline: 30 Août</div>
-                                    </div>
+                            <div class="project-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%;"></div>
                                 </div>
-                                
-                                <div class="project-item">
-                                    <div class="project-header">
-                                        <div class="project-name">Refonte Site Web - StartupXYZ</div>
-                                        <div class="project-status status-pending">En attente</div>
-                                    </div>
-                            
-                                </div> 
-                                <div class="project-item">
-                                    <div class="project-header">
-                                        <div class="project-name">Refonte Site Web - StartupXYZ</div>
-                                        <div class="project-status status-pending">En attente</div>
-                                    </div>
-                            
-                                </div> 
-                                <div class="project-item">
-                                    <div class="project-header">
-                                        <div class="project-name">Refonte Site Web - StartupXYZ</div>
-                                        <div class="project-status status-pending">En attente</div>
-                                    </div>
-                            
-                                </div> 
-                                <div class="project-item">
-                                    <div class="project-header">
-                                        <div class="project-name">Refonte Site Web - StartupXYZ</div>
-                                        <div class="project-status status-pending">En attente</div>
-                                    </div>
-                            
-                                </div> 
+                                <div class="progress-text">75% complété • Deadline: <?= $projet->date ?></div>
                             </div>
-                        </div>  
-                    </div>      
+                        </div>
+                        <?php endforeach;  ?>
+                    </div>
+                </div>      
             </div>
+        </div>
+
 
             <!-- Team Section -->
             <div id="team" class="content-section">
@@ -345,31 +350,13 @@ if (!$_SESSION['nom']) {
         </tr>
         </thead>
         <tbody id="budgetTableBody">
+            <?php foreach($Projet as $projet): ?>
         <tr>
-            <td>Campagne Digitale 2025</td>
-            <td class="budget-amount">2,500,000</td>
+            <td><?= $projet->nomProjet ?></td>
+            <td class="budget-amount"><?= $projet->montant ?></td>
             <td><button class="update-btn">Modifier</button></td>
         </tr>
-        <tr>
-            <td>Lancement Produit Alpha</td>
-            <td class="budget-amount">3,800,000</td>
-            <td><button class="update-btn">Modifier</button></td>
-        </tr>
-        <tr>
-            <td>Événement Vision Expo</td>
-            <td class="budget-amount">1,750,000</td>
-            <td><button class="update-btn">Modifier</button></td>
-        </tr>
-        <tr>
-            <td>Campagne Réseaux Sociaux</td>
-            <td class="budget-amount">900,000</td>
-            <td><button class="update-btn">Modifier</button></td>
-        </tr>
-        <tr>
-            <td>Stratégie SEO Premium</td>
-            <td class="budget-amount">2,200,000</td>
-            <td><button class="update-btn">Modifier</button></td>
-        </tr>
+            <?php endforeach;  ?>
         </tbody>
     </table>
 
@@ -387,26 +374,37 @@ if (!$_SESSION['nom']) {
     <h2 style="color: black;">Gestion des Rapports</h2>
 
     <!-- Formulaire pour ajouter un rapport -->
-    <div class="rapport-form">
-        <input type="text" id="rapportName" placeholder="Nom du rapport">
-        <select id="rapportProject">
+ <!-- Formulaire pour ajouter un rapport -->
+<form  method="POST" enctype="multipart/form-data" class="rapport-form">
+    <input type="text" name="rapportName" placeholder="Nom du rapport" required>
+
+    <select name="rapportProject" required>
         <option value="Campagne Digitale 2025">Campagne Digitale 2025</option>
         <option value="Lancement Produit Alpha">Lancement Produit Alpha</option>
         <option value="Événement Vision Expo">Événement Vision Expo</option>
         <option value="Campagne Réseaux Sociaux">Campagne Réseaux Sociaux</option>
         <option value="Stratégie SEO Premium">Stratégie SEO Premium</option>
-        </select>
-        <label>Clients assignés :</label>
-        <select id="rapportClients" multiple>
-        <option value="Alpha Corp">Alpha Corp</option>
-        <option value="Beta Agency">Beta Agency</option>
-        <option value="Gamma Studio">Gamma Studio</option>
-        <option value="Delta Group">Delta Group</option>
-        <option value="Omega Ltd">Omega Ltd</option>
-        </select>
-        <input type="file" id="rapportFile" style="font-size: 16px;">
-        <button id="addRapportBtn" style="font-weight: bold; font-size: 18px;margin-top: 2%;" >Ajouter Rapport</button>
-    </div>
+    </select>
+
+    <label>Clients assignés :</label>
+    <select name="rapportClients" multiple required>
+       <?php foreach($clients as $client): ?>
+            <option value="<?= htmlspecialchars($client['nom']) ?>"><?= htmlspecialchars($client['nom']) ?></option>
+     <?php endforeach; ?>
+    </select>
+
+    <input type="file" name="rapportFile" style="font-size: 16px;">
+
+    <button type="submit" name="valider" vastyle="font-weight: bold; font-size: 18px; margin-top: 2%;">
+        Ajouter Rapport
+    </button>
+     <?php
+        if(isset($message)){
+                echo '<p style="color:green;text-align:center; font-weight: bold;margin-top:2%">'.$message.'</p>';
+        } 
+    ?>
+</form>
+
 
     <!-- Liste des rapports -->
     <div id="rapportList" class="rapport-list">

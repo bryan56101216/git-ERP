@@ -26,12 +26,12 @@ if (isset($_POST['saveInvoice'])) {
         // UPDATE : ne modifie PAS la date d'échéance ni la description
 $stmt = $access->prepare("UPDATE facture SET numeroFacture=?, nomClient=?, date=?, montant=?, statut=? WHERE idFacture=?");
         $stmt->execute([$numero,$client, $date, $amount, $statut, $invoiceId]);
-        $message = "Invoice updated successfully.";
+        $message = "Facture mise à jour avec succès.";
     } else {
         // INSERT : enregistre tout
         $stmt = $access->prepare("INSERT INTO facture (numeroFacture, nomClient, date, date_echeance, montant, statut, description) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$numero, $client, $date, $dueDate, $amount, $statut, $description]);
-        $message = "Invoice successfully registered.";
+        $message = "Facture enregistrée avec succès.";
     }
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
@@ -50,12 +50,12 @@ if (isset($_POST['saveQuote'])) {
         // UPDATE
         $stmt = $access->prepare("UPDATE devis SET nomDevis=?, nomClient=?, montantExtime=?, dateCreation=?, statut=?, description=? WHERE idDevis=?");
         $stmt->execute([$nomDevi, $client, $amount, $date, $statut, $description, $id]);
-        $messageQuote = "Quote updated successfully.";
+        $messageQuote = "Devis mis à jour avec succès.";
     } else {
         // INSERT
         $stmt = $access->prepare("INSERT INTO devis (nomDevis, nomClient, montantExtime, dateCreation, statut, description) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->execute([$nomDevi, $client, $amount, $date, $statut, $description]);
-        $messageQuote = "Quote successfully registered.";
+        $messageQuote = "Devis enregistré avec succès.";
     }
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
@@ -87,12 +87,12 @@ if (isset($_POST['savePayment'])) {
          // UPDATE : ne modifie PAS la date d'échéance ni la description
      $stmt = $access->prepare("UPDATE payements SET numeroPayement=?, numeroFacture=?, nomClient=?, montantRecu=?, datePayement=?,  methodePayement=? WHERE idPayement=?");
         $stmt->execute([$numeroPayement,$numerofacture, $nomClient,  $amount, $date, $methodPayement, $payementId]);
-        $message = "Invoice updated successfully.";
+        $message = "Paiement mis à jour avec succès.";
      } else {
         // INSERT : enregistre tout
         $stmt = $access->prepare("INSERT INTO payements (numeroPayement, numeroFacture, nomClient, montantRecu, datePayement, methodePayement) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->execute([$numeroPayement,$numerofacture, $nomClient,  $amount, $date, $methodPayement]);
-        $message = "Invoice successfully registered.";
+        $message = "Paiement enregistré avec succès.";
      }
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
@@ -106,16 +106,16 @@ if (!$_SESSION['nom']) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AccountPro Dashboard</title>
+    <title>Tableau de Bord ComptePro</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
     <div class="container">
-        <!-- Sidebar -->
+        <!-- Barre Latérale -->
         <nav class="sidebar" id="sidebar">
             <div class="profile">
                 <div class="profile-img">
@@ -140,31 +140,31 @@ if (!$_SESSION['nom']) {
                 <li class="nav-item">
                     <a class="nav-link active" data-section="dashboard">
                         <i class="fas fa-chart-bar nav-icon"></i>
-                        Dashboard
+                        Tableau de Bord
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-section="invoices">
                         <i class="fas fa-file-invoice nav-icon"></i>
-                        Invoices
+                        Factures
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-section="quotes">
                         <i class="fas fa-file-contract nav-icon"></i>
-                        Quotes
+                        Devis
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-section="payments">
                         <i class="fas fa-credit-card nav-icon"></i>
-                        Payments
+                        Paiements
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-section="credits">
                         <i class="fas fa-undo nav-icon"></i>
-                        Credits & Refunds
+                        Crédits & Remboursements
                     </a>
                 </li>
                 <li class="nav-item">
@@ -176,7 +176,7 @@ if (!$_SESSION['nom']) {
                 <li class="nav-item">
                     <a class="nav-link" data-section="reports">
                         <i class="fas fa-chart-line nav-icon"></i>
-                        Reports
+                        Rapports
                     </a>
                 </li>
             </ul>
@@ -184,12 +184,12 @@ if (!$_SESSION['nom']) {
             <div class="nav-bottom" >
                 <a href="../Authentifier/deconnexion.php"  style="text-decoration:none;"><button class="logout-btn" >
                     <i class="fas fa-sign-out-alt nav-icon" ></i>
-                    Log Out
+                    Se Déconnecter
                 </button></a>
             </div>
         </nav>
 
-        <!-- Main Content -->
+        <!-- Contenu Principal -->
         <main class="main-content">
             <header class="header">
                 <button class="mobile-toggle" onclick="toggleSidebar()">
@@ -197,39 +197,39 @@ if (!$_SESSION['nom']) {
                 </button>
                 <div class="search-container">
                     <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-input" placeholder="Search clients, invoices..." id="globalSearch">
+                    <input type="text" class="search-input" placeholder="Rechercher clients, factures..." id="globalSearch">
                 </div>
                 <div class="header-actions">
                     
                     <button class="btn btn-primary" onclick="openModal('quickActionModal')">
                         <i class="fas fa-plus"></i>
-                        Quick Action
+                        Action Rapide
                     </button>
                 </div>
             </header>
 
-            <!-- Dashboard Section -->
+            <!-- Section Tableau de Bord -->
             <section class="content-section active" id="dashboard">
                 <div class="section-header">
-                    <h2 class="section-title">Dashboard Overview</h2>
+                    <h2 class="section-title">Aperçu du Tableau de Bord</h2>
                 </div>
                 
                 <div class="stats-grid">
                     <div class="stat-card" onclick="showSection('invoices')">
                         <div class="stat-number" id="totalInvoices">24</div>
-                        <div class="stat-label">Total Invoices</div>
+                        <div class="stat-label">Total Factures</div>
                     </div>
                     <div class="stat-card" onclick="filterInvoicesByStatus('pending')">
-                        <div class="stat-number" id="pendingAmount">$15,420</div>
-                        <div class="stat-label">Pending Amount</div>
+                        <div class="stat-number" id="pendingAmount">15 420XAF</div>
+                        <div class="stat-label">Montant en Attente</div>
                     </div>
                     <div class="stat-card" onclick="filterInvoicesByStatus('paid')">
-                        <div class="stat-number" id="paidAmount">$48,350</div>
-                        <div class="stat-label">Paid This Month</div>
+                        <div class="stat-number" id="paidAmount">48 350XAF</div>
+                        <div class="stat-label">Payé ce Mois</div>
                     </div>
                     <div class="stat-card" onclick="filterInvoicesByStatus('overdue')">
                         <div class="stat-number" id="overdueCount">3</div>
-                        <div class="stat-label">Overdue Invoices</div>
+                        <div class="stat-label">Factures en Retard</div>
                     </div>
                 </div>
 
@@ -237,11 +237,11 @@ if (!$_SESSION['nom']) {
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>n</th>
+                                <th>N°</th>
                                 <th>Client</th>
-                                <th>Invoice Date</th>
-                                <th>Amount</th>
-                                <th>Status</th>
+                                <th>Date Facture</th>
+                                <th>Montant</th>
+                                <th>Statut</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -251,7 +251,7 @@ if (!$_SESSION['nom']) {
                             <td><?= $facture->idFacture ?></td>
                             <td><?= $facture->nomClient ?></td>
                             <td><?= $facture->date ?></td>
-                            <td>$<?= $facture->montant ?></td>
+                            <td><?= $facture->montant ?>XAF</td>
                             <td><?= $facture->statut ?></td>
                             <td>
                                 <div class="action-btns">
@@ -268,13 +268,13 @@ if (!$_SESSION['nom']) {
                 </div>
             </section>
 
-            <!-- Invoices Section -->
+            <!-- Section Factures -->
             <section class="content-section" id="invoices">
                 <div class="section-header">
-                    <h2 class="section-title">Invoice Management</h2>
+                    <h2 class="section-title">Gestion des Factures</h2>
                     <button class="btn btn-primary" onclick="openModal('invoiceModal')">
                         <i class="fas fa-plus"></i>
-                        New Invoice
+                        Nouvelle Facture
                     </button>
                 </div>
                 
@@ -282,13 +282,13 @@ if (!$_SESSION['nom']) {
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>N</th>
-                                <th>Invoice </th>
+                                <th>N°</th>
+                                <th>Facture</th>
                                 <th>Client</th>
                                 <th>Date</th>
-                                <th>Due Date</th>
-                                <th>Amount</th>
-                                <th>Status</th>
+                                <th>Date Échéance</th>
+                                <th>Montant</th>
+                                <th>Statut</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -300,7 +300,7 @@ if (!$_SESSION['nom']) {
                             <td><?= $facture->nomClient ?></td>
                             <td><?= $facture->date ?></td>
                             <td><?= $facture->date_echeance ?></td>
-                            <td>$<?= $facture->montant ?></td>
+                            <td><?= $facture->montant ?>XAF</td>
                             <td><?= $facture->statut ?></td>
                             <td>
                                 <div class="action-btns">
@@ -321,13 +321,13 @@ if (!$_SESSION['nom']) {
                 </div>
             </section>
 
-            <!-- Quotes Section -->
+            <!-- Section Devis -->
             <section class="content-section" id="quotes">
                 <div class="section-header">
-                    <h2 class="section-title">Quote Management</h2>
+                    <h2 class="section-title">Gestion des Devis</h2>
                     <button class="btn btn-primary" onclick="openModal('quoteModal')">
                         <i class="fas fa-plus"></i>
-                        New Quote
+                        Nouveau Devis
                     </button>
                 </div>
                 
@@ -335,11 +335,11 @@ if (!$_SESSION['nom']) {
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Quote </th>
+                                <th>Devis</th>
                                 <th>Client</th>
                                 <th>Date</th>
-                                <th>Amount</th>
-                                <th>Status</th>
+                                <th>Montant</th>
+                                <th>Statut</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -349,7 +349,7 @@ if (!$_SESSION['nom']) {
                                     <td><?= htmlspecialchars($quote['nomDevis']) ?></td>
                                     <td><?= htmlspecialchars($quote['nomClient']) ?></td>
                                     <td><?= htmlspecialchars($quote['dateCreation']) ?></td>
-                                    <td><?= htmlspecialchars($quote['montantExtime']) ?></td>
+                                    <td><?= htmlspecialchars($quote['montantExtime']) ?>XAF</td>
                                     <td><?= htmlspecialchars($quote['statut']) ?></td>
                                     <td>
                                         <div class="action-btns">
@@ -378,13 +378,13 @@ if (!$_SESSION['nom']) {
                 </div>
             </section>
 
-            <!-- Payments Section -->
+            <!-- Section Paiements -->
             <section class="content-section" id="payments">
                 <div class="section-header">
-                    <h2 class="section-title">Payment Tracking</h2>
+                    <h2 class="section-title">Suivi des Paiements</h2>
                     <button class="btn btn-primary" onclick="openModal('paymentModal')">
                         <i class="fas fa-plus"></i>
-                        Record Payment
+                        Enregistrer Paiement
                     </button>
                 </div>
                 
@@ -393,12 +393,12 @@ if (!$_SESSION['nom']) {
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Payment</th>
-                                <th>Invoice</th>
+                                <th>Paiement</th>
+                                <th>Facture</th>
                                 <th>Client</th>
-                                <th>Amount</th>
-                                <th>Payment Date</th>
-                                <th>Method</th>
+                                <th>Montant</th>
+                                <th>Date Paiement</th>
+                                <th>Méthode</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -408,8 +408,8 @@ if (!$_SESSION['nom']) {
                             <td><?= $payement->idPayement ?></td>
                             <td><?= $payement->numeroPayement ?></td>
                             <td><?= $payement->numeroFacture ?></td>
-                            <td>$<?= $payement->nomClient ?></td>
-                            <td><?= $payement->montantRecu?></td>
+                            <td><?= $payement->nomClient ?></td>
+                            <td><?= $payement->montantRecu ?>XAF</td>
                             <td><?= $payement->datePayement?></td>
                             <td><?= $payement->methodePayement?></td>
                             <td>
@@ -427,13 +427,13 @@ if (!$_SESSION['nom']) {
                 </div>
             </section>
 
-            <!-- Credits Section -->
+            <!-- Section Crédits -->
             <section class="content-section" id="credits">
                 <div class="section-header">
-                    <h2 class="section-title">Credits & Refunds</h2>
+                    <h2 class="section-title">Crédits & Remboursements</h2>
                     <button class="btn btn-primary" onclick="openModal('creditModal')">
                         <i class="fas fa-plus"></i>
-                        New Credit Note
+                        Nouvelle Note de Crédit
                     </button>
                 </div>
                 
@@ -441,12 +441,12 @@ if (!$_SESSION['nom']) {
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Credit</th>
+                                <th>Crédit</th>
                                 <th>Client</th>
-                                <th>Original Invoice</th>
-                                <th>Amount</th>
+                                <th>Facture Originale</th>
+                                <th>Montant</th>
                                 <th>Date</th>
-                                <th>Reason</th>
+                                <th>Motif</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -457,13 +457,13 @@ if (!$_SESSION['nom']) {
                 </div>
             </section>
 
-            <!-- Clients Section -->
+            <!-- Section Clients -->
             <section class="content-section" id="clients">
                 <div class="section-header">
-                    <h2 class="section-title">Client Management</h2>
+                    <h2 class="section-title">Gestion des Clients</h2>
                     <button class="btn btn-primary" onclick="openModal('clientModal')">
                         <i class="fas fa-plus"></i>
-                        New Client
+                        Nouveau Client
                     </button>
                 </div>
                 
@@ -471,103 +471,103 @@ if (!$_SESSION['nom']) {
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Client Name</th>
+                                <th>Nom Client</th>
                                 <th>Email</th>
-                                <th>Phone</th>
-                                <th>Outstanding</th>
-                                <th>Last Invoice</th>
+                                <th>Téléphone</th>
+                                <th>En Souffrance</th>
+                                <th>Dernière Facture</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody id="clientsTable">
-                            <!-- Data will be populated by JavaScript -->
+                            <!-- Les données seront peuplées par JavaScript -->
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- Reports Section -->
+            <!-- Section Rapports -->
             <section class="content-section" id="reports">
                 <div class="section-header">
-                    <h2 class="section-title">Financial Reports</h2>
+                    <h2 class="section-title">Rapports Financiers</h2>
                 </div>
                 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-number">$63,770</div>
-                        <div class="stat-label">Total Revenue (YTD)</div>
+                        <div class="stat-number">63 770XAF</div>
+                        <div class="stat-label">Chiffre d'Affaires Total (YTD)</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">$15,420</div>
-                        <div class="stat-label">Outstanding</div>
+                        <div class="stat-number">15 420XAF</div>
+                        <div class="stat-label">En Souffrance</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">89%</div>
-                        <div class="stat-label">Collection Rate</div>
+                        <div class="stat-label">Taux de Recouvrement</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">12</div>
-                        <div class="stat-label">Days Avg Collection</div>
+                        <div class="stat-label">Délai Moy. Recouvrement</div>
                     </div>
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- Invoice Modal -->
+    <!-- Modal Facture -->
     <div class="modal" id="invoiceModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('invoiceModal')">&times;</span>
-            <h3 id="invoiceModalTitle">Create New Invoice</h3>
+            <h3 id="invoiceModalTitle">Créer Nouvelle Facture</h3>
         <form method="POST">
            <input type="hidden" id="editInvoiceId" name="editInvoiceId" value="">
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">Client</label>
                     <select class="form-input" id="invoiceClient" name="invoiceClient" required>
-                        <option value="">Select Client</option>
+                        <option value="">Sélectionner Client</option>
                         <?php foreach($clients as $client): ?>
                             <option value="<?= htmlspecialchars($client['nom']) ?>"><?= htmlspecialchars($client['nom']) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Invoice number</label>
+                    <label class="form-label">Numéro facture</label>
                     <input type="text" class="form-input" id="invoiceNumber" name="invoiceNumber" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Invoice Date</label>
+                    <label class="form-label">Date Facture</label>
                     <input type="date" class="form-input" id="invoiceDate" name="invoiceDate" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label class="form-label">Due Date</label>
+                    <label class="form-label">Date Échéance</label>
                     <input type="date" class="form-input" id="invoiceDueDate" name="invoiceDueDate" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Amount</label>
+                    <label class="form-label">Montant</label>
                     <input type="number" class="form-input" id="invoiceAmount" name="invoiceAmount" step="0.01" required>
                 </div>
                  <div class="form-group">
                     <label class="form-label">Statut</label>
                     <select class="form-input" id="invoiceStatut" name="statut" required>
-                        <option value="">Select Statut</option>
-                            <option value="Paid">Paid</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Overdue">Overdue</option>
+                        <option value="">Sélectionner Statut</option>
+                            <option value="Payée">Payée</option>
+                            <option value="En Attente">En Attente</option>
+                            <option value="En Retard">En Retard</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="form-label">Description</label>
-                <textarea class="form-input" id="invoiceDescription" name="invoiceDescription" rows="3" placeholder="Service description..."></textarea>
+                <textarea class="form-input" id="invoiceDescription" name="invoiceDescription" rows="3" placeholder="Description du service..."></textarea>
             </div>
             <div class="form-row">
-                <button type="button" class="btn btn-secondary" onclick="closeModal('invoiceModal')">Cancel</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('invoiceModal')">Annuler</button>
                 <button type="submit" class="btn btn-primary" name="saveInvoice">
                     <i class="fas fa-save"></i>
-                    <span id="invoiceSubmitText">Create Invoice</span>
+                    <span id="invoiceSubmitText">Créer Facture</span>
                 </button>
                 <?php if(isset($message)) { echo '<p style="color:green;text-align:center; font-weight: bold;margin-top:2%">'.$message.'</p>'; } ?>
             </div>
@@ -575,22 +575,22 @@ if (!$_SESSION['nom']) {
         </div>
     </div>
 
-    <!-- Quote Modal -->
+    <!-- Modal Devis -->
     <div class="modal" id="quoteModal">
-        <!-- Modal Quote Form -->
+        <!-- Formulaire Modal Devis -->
 <div class="modal-content">
-    <h3 id="quoteModalTitle">Create New Quote</h3>
+    <h3 id="quoteModalTitle">Créer Nouveau Devis</h3>
     <form id="quoteForm" method="POST">
         <input type="hidden" id="editQuoteId" name="editQuoteId" value="">
         <div class="form-row">
             <div class="form-group">
-                <label class="form-label">Name Quote</label>
+                <label class="form-label">Nom Devis</label>
                 <input type="text" class="form-input" id="quoteName" name="quoteName" required>
             </div>
             <div class="form-group">
                 <label class="form-label">Client</label>
                 <select class="form-input" id="quoteClient" name="quoteClient" required>
-                    <option value="">Select Client</option>
+                    <option value="">Sélectionner Client</option>
                     <?php foreach($clients as $client): ?>
                         <option value="<?= htmlspecialchars($client['nom']) ?>"><?= htmlspecialchars($client['nom']) ?></option>
                     <?php endforeach; ?>
@@ -599,32 +599,32 @@ if (!$_SESSION['nom']) {
         </div>
         <div class="form-row">
             <div class="form-group">
-                <label class="form-label">Quote Date</label>
+                <label class="form-label">Date Devis</label>
                 <input type="date" class="form-input" id="quoteDate" name="quoteDate" required>
             </div>
             <div class="form-group">
-                <label class="form-label">Amount</label>
+                <label class="form-label">Montant</label>
                 <input type="number" class="form-input" id="quoteAmount" name="quoteAmount" step="0.01" required>
             </div>
             <div class="form-group">
                 <label class="form-label">Statut</label>
                 <select class="form-input" id="quoteStatut" name="statut" required>
-                    <option value="">Select Statut</option>
-                    <option value="Paid">Paid</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Overdue">Overdue</option>
+                    <option value="">Sélectionner Statut</option>
+                    <option value="Payé">Payé</option>
+                    <option value="En Attente">En Attente</option>
+                    <option value="En Retard">En Retard</option>
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-label">Project Description</label>
-            <textarea class="form-input" id="quoteDescription" name="quoteDescription" rows="3" placeholder="Project details..."></textarea>
+            <label class="form-label">Description Projet</label>
+            <textarea class="form-input" id="quoteDescription" name="quoteDescription" rows="3" placeholder="Détails du projet..."></textarea>
         </div>
         <div class="form-row">
-            <button type="button" class="btn btn-secondary" onclick="closeModal('quoteModal')">Cancel</button>
+            <button type="button" class="btn btn-secondary" onclick="closeModal('quoteModal')">Annuler</button>
             <button type="submit" class="btn btn-primary" name="saveQuote">
                 <i class="fas fa-save"></i>
-                <span id="quoteSubmitText">Create Quote</span>
+                <span id="quoteSubmitText">Créer Devis</span>
             </button>
             <?php if(isset($messageQuote)) { echo '<p style="color:green;text-align:center; font-weight: bold;margin-top:2%">'.$messageQuote.'</p>'; } ?>
         </div>
@@ -632,21 +632,21 @@ if (!$_SESSION['nom']) {
 </div>
     </div>
 
-    <!-- Email Modal -->
+    <!-- Modal Email -->
     <div class="modal" id="emailModal">
         <div class="modal-content email-modal-content">
             <span class="close-btn" onclick="closeModal('emailModal')">&times;</span>
-            <h3 id="emailModalTitle">Send Document</h3>
+            <h3 id="emailModalTitle">Envoyer Document</h3>
             
             <div class="email-preview">
                 <div class="email-field">
-                    <strong>To:</strong> <span id="emailRecipient"></span>
+                    <strong>À:</strong> <span id="emailRecipient"></span>
                 </div>
                 <div class="email-field">
-                    <strong>From:</strong> accounting@yourcompany.com
+                    <strong>De:</strong> comptabilite@votreentreprise.com
                 </div>
                 <div class="email-field">
-                    <strong>Subject:</strong> <span id="emailSubject"></span>
+                    <strong>Objet:</strong> <span id="emailSubject"></span>
                 </div>
             </div>
 
@@ -656,21 +656,21 @@ if (!$_SESSION['nom']) {
                 
                 <div class="form-group">
                     <label class="form-label">Message</label>
-                    <textarea class="form-input" id="emailMessage" rows="6" placeholder="Your message here..."></textarea>
+                    <textarea class="form-input" id="emailMessage" rows="6" placeholder="Votre message ici..."></textarea>
                 </div>
                 
                 <div class="form-group">
                     <label>
                         <input type="checkbox" id="emailCopyToSelf" checked> 
-                        Send a copy to myself
+                        M'envoyer une copie
                     </label>
                 </div>
 
                 <div class="form-row">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('emailModal')">Cancel</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('emailModal')">Annuler</button>
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-paper-plane"></i>
-                        Send Email
+                        Envoyer Email
                     </button>
                     
                 </div>
@@ -678,20 +678,20 @@ if (!$_SESSION['nom']) {
         </div>
     </div>
 
-    <!-- Payment Modal -->
+    <!-- Modal Paiement -->
     <div class="modal" id="paymentModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
-            <h3>Record Payment</h3>
+            <h3>Enregistrer Paiement</h3>
             <form id="paymentForm" method="POST">
         <input type="hidden" id="editPaymentId" name="editPaymentId" value="">
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label">Payment number</label>
-                        <input type="text" class="form-input" id="paymentDate" name="paymentNumber" required>
+                        <label class="form-label">Numéro paiement</label>
+                        <input type="text" class="form-input" id="paymentNumber" name="paymentNumber" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Invoice</label>
+                        <label class="form-label">Facture</label>
                         <select class="form-input" id="paymentInvoice" name="paymentInvoice" required>
                         <?php foreach($factures as $facture): ?>
                         <option value="<?=$facture->numeroFacture?>"><?= $facture->numeroFacture ?></option>
@@ -699,7 +699,7 @@ if (!$_SESSION['nom']) {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Payment Date</label>
+                        <label class="form-label">Date Paiement</label>
                         <input type="date" class="form-input" id="paymentDate" name="paymentDate" required>
                     </div>
                 </div>
@@ -707,24 +707,24 @@ if (!$_SESSION['nom']) {
                     <div class="form-group">
                 <label class="form-label">Client</label>
                 <select class="form-input" id="paymentClient" name="paymentClient" required>
-                    <option value="">Select Client</option>
+                    <option value="">Sélectionner Client</option>
                     <?php foreach($clients as $client): ?>
                         <option value="<?= htmlspecialchars($client['nom']) ?>"><?= htmlspecialchars($client['nom']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
                     <div class="form-group">
-                        <label class="form-label">Amount Received</label>
+                        <label class="form-label">Montant Reçu</label>
                         <input type="number" class="form-input" id="paymentAmount" step="0.01" name="paymentAmount" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Payment Method</label>
+                        <label class="form-label">Méthode de Paiement</label>
                         <select class="form-input" id="paymentMethod" name="paymentMethod" required>
-                            <option value="">Select Method</option>
-                            <option value="bank_transfer">Bank Transfer</option>
-                            <option value="check">Check</option>
-                            <option value="cash">Cash</option>
-                            <option value="card">Credit Card</option>
+                            <option value="">Sélectionner Méthode</option>
+                            <option value="virement_bancaire">Virement Bancaire</option>
+                            <option value="cheque">Chèque</option>
+                            <option value="especes">Espèces</option>
+                            <option value="carte">Carte de Crédit</option>
                             <option value="paypal">PayPal</option>
                         </select>
                     </div>
@@ -732,27 +732,27 @@ if (!$_SESSION['nom']) {
 
 
                 <div class="form-row">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('paymentModal')">Cancel</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('paymentModal')">Annuler</button>
                     <button type="submit" class="btn btn-primary" name="savePayment">
                         <i class="fas fa-save"></i>
-                        Record Payment
+                        Enregistrer Paiement
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Credit Modal -->
+    <!-- Modal Crédit -->
     <div class="modal" id="creditModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('creditModal')">&times;</span>
-            <h3>Create Credit Note</h3>
+            <h3>Créer Note de Crédit</h3>
             <form id="creditForm" onsubmit="submitCredit(event)">
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Client</label>
                         <select class="form-input" id="creditClient" required>
-                            <option value="">Select Client</option>
+                            <option value="">Sélectionner Client</option>
                             <option value="candice">Candice Sutton</option>
                             <option value="kristina">Kristina Townsend</option>
                             <option value="derrick">Derrick Carter</option>
@@ -760,49 +760,49 @@ if (!$_SESSION['nom']) {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Original Invoice</label>
+                        <label class="form-label">Facture Originale</label>
                         <select class="form-input" id="creditInvoice" required>
-                            <option value="">Select Invoice</option>
-                            <option value="INV-001">INV-001</option>
-                            <option value="INV-002">INV-002</option>
-                            <option value="INV-003">INV-003</option>
+                            <option value="">Sélectionner Facture</option>
+                            <option value="INV-001">FAC-001</option>
+                            <option value="INV-002">FAC-002</option>
+                            <option value="INV-003">FAC-003</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label">Credit Amount</label>
+                        <label class="form-label">Montant du Crédit</label>
                         <input type="number" class="form-input" id="creditAmount" step="0.01" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Credit Date</label>
+                        <label class="form-label">Date du Crédit</label>
                         <input type="date" class="form-input" id="creditDate" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Reason</label>
-                    <textarea class="form-input" id="creditReason" rows="3" placeholder="Reason for credit note..." required></textarea>
+                    <label class="form-label">Motif</label>
+                    <textarea class="form-input" id="creditReason" rows="3" placeholder="Motif de la note de crédit..." required></textarea>
                 </div>
                 <div class="form-row">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('creditModal')">Cancel</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('creditModal')">Annuler</button>
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i>
-                        Create Credit Note
+                        Créer Note de Crédit
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Client Modal -->
+    <!-- Modal Client -->
     <div class="modal" id="clientModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('clientModal')">&times;</span>
-            <h3>Add New Client</h3>
+            <h3>Ajouter Nouveau Client</h3>
             <form id="clientForm" onsubmit="submitClient(event)">
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label">Client Name</label>
+                        <label class="form-label">Nom Client</label>
                         <input type="text" class="form-input" id="clientName" required>
                     </div>
                     <div class="form-group">
@@ -812,54 +812,54 @@ if (!$_SESSION['nom']) {
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label">Phone</label>
+                        <label class="form-label">Téléphone</label>
                         <input type="tel" class="form-input" id="clientPhone" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Company</label>
+                        <label class="form-label">Entreprise</label>
                         <input type="text" class="form-input" id="clientCompany">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Address</label>
-                    <textarea class="form-input" id="clientAddress" rows="3" placeholder="Complete address..."></textarea>
+                    <label class="form-label">Adresse</label>
+                    <textarea class="form-input" id="clientAddress" rows="3" placeholder="Adresse complète..."></textarea>
                 </div>
                 <div class="form-row">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('clientModal')">Cancel</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('clientModal')">Annuler</button>
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i>
-                        Add Client
+                        Ajouter Client
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Quick Action Modal -->
+    <!-- Modal Action Rapide -->
     <div class="modal" id="quickActionModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('quickActionModal')">&times;</span>
-            <h3>Quick Actions</h3>
+            <h3>Actions Rapides</h3>
             <div style="display: grid; gap: 1rem; padding: 1rem 0;">
                 <button class="btn btn-primary" onclick="openModal('invoiceModal'); closeModal('quickActionModal');">
                     <i class="fas fa-file-invoice"></i>
-                    Create Invoice
+                    Créer Facture
                 </button>
                 <button class="btn btn-primary" onclick="openModal('quoteModal'); closeModal('quickActionModal');">
                     <i class="fas fa-file-contract"></i>
-                    Create Quote
+                    Créer Devis
                 </button>
                 <button class="btn btn-primary" onclick="openModal('paymentModal'); closeModal('quickActionModal');">
                     <i class="fas fa-credit-card"></i>
-                    Record Payment
+                    Enregistrer Paiement
                 </button>
                 <button class="btn btn-primary" onclick="openModal('creditModal'); closeModal('quickActionModal');">
                     <i class="fas fa-undo"></i>
-                    Create Credit Note
+                    Créer Note de Crédit
                 </button>
                 <button class="btn btn-primary" onclick="openModal('clientModal'); closeModal('quickActionModal');">
                     <i class="fas fa-users"></i>
-                    Add Client
+                    Ajouter Client
                 </button>
             </div>
         </div>

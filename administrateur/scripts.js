@@ -1,47 +1,45 @@
-     // Global variables
-        let currentSection = 'users';
-        let currentTab = 'all-users';
+// Variables globales
+let currentSection = 'users';
+let currentTab = 'all-users';
 
-        // Sidebar functionality
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('collapsed');
-            
-            const toggleBtn = sidebar.querySelector('.toggle-btn i');
-            if (sidebar.classList.contains('collapsed')) {
-                toggleBtn.className = 'fas fa-chevron-right';
-            } else {
-                toggleBtn.className = 'fas fa-chevron-left';
-            }
-        }
+// Fonctionnalité de la barre latérale
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('collapsed');
+    
+    const toggleBtn = sidebar.querySelector('.toggle-btn i');
+    if (sidebar.classList.contains('collapsed')) {
+        toggleBtn.className = 'fas fa-chevron-right';
+    } else {
+        toggleBtn.className = 'fas fa-chevron-left';
+    }
+}
 
-        function toggleMobileMenu() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('open');
-        }
+function toggleMobileMenu() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
 
-        // Section management
-        function showSection(sectionName) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.add('hidden');
-            });
-            
-            // Show selected section
-            document.getElementById(sectionName + '-section').classList.remove('hidden');
-            
-            // Update active nav item
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            currentSection = sectionName;
-        }
+// Gestion des sections
+function showSection(sectionName) {
+    // Masquer toutes les sections
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.add('hidden');
+    });
+    
+    // Afficher la section sélectionnée
+    document.getElementById(sectionName + '-section').classList.remove('hidden');
+    
+    // Mettre à jour l'élément de navigation actif
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    currentSection = sectionName;
+}
 
-        // Tab functionality
-       // ...existing code...
-
+// Fonctionnalité des onglets
 function switchTab(tabName) {
     // Onglet actif
     document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
@@ -53,13 +51,13 @@ function switchTab(tabName) {
         const roleCell = row.cells[2].textContent.trim();
         if (tabName === 'all-users') {
             row.style.display = '';
-        } else if (tabName === 'Project manager' && roleCell === 'Project Manager') {
+        } else if (tabName === 'project-manager' && roleCell === 'Chef de Projet') {
             row.style.display = '';
-        } else if (tabName === 'Marketing agent' && roleCell === 'Marketing Agent') {
+        } else if (tabName === 'marketing-agent' && roleCell === 'Agent Marketing') {
             row.style.display = '';
-        } else if (tabName === 'Accountant' && roleCell === 'Accountant') {
+        } else if (tabName === 'accountant' && roleCell === 'Comptable') {
             row.style.display = '';
-        } else if (tabName === 'Customer' && (roleCell === 'Customer' || roleCell === 'client')) {
+        } else if (tabName === 'customer' && (roleCell === 'Client' || roleCell === 'Customer')) {
             row.style.display = '';
         } else {
             row.style.display = 'none';
@@ -79,10 +77,8 @@ function filterUsersByRole(role) {
     });
 }
 
-// ...existing code...
-
-        // Filter functionality
-       function filterUsers(status) {
+// Fonctionnalité de filtrage
+function filterUsers(status) {
     // Met à jour le bouton actif
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -94,17 +90,25 @@ function filterUsersByRole(role) {
     rows.forEach(row => {
         const statusElement = row.querySelector('.status-badge');
         const userStatus = statusElement ? statusElement.textContent.trim().toLowerCase() : '';
+        
+        // Mapping des statuts français vers anglais pour la compatibilité
+        let statusToCheck = status.toLowerCase();
+        if (status === 'active') statusToCheck = 'actif';
+        else if (status === 'inactive') statusToCheck = 'inactif';
+        else if (status === 'pending') statusToCheck = 'en attente';
+        
         if (status === 'all') {
             row.style.display = '';
-        } else if (userStatus === status.toLowerCase()) {
+        } else if (userStatus === statusToCheck || userStatus === status.toLowerCase()) {
             row.style.display = '';
         } else {
             row.style.display = 'none';
         }
     });
 }
-        // Modal functionality
-      function openModal(modalType) {
+
+// Fonctionnalité des modales
+function openModal(modalType) {
     const modal = document.getElementById(modalType + 'Modal');
     if (!modal) return;
     
@@ -118,14 +122,15 @@ function filterUsersByRole(role) {
             // MODE CRÉATION - Réinitialiser le formulaire
             document.getElementById('createUserForm').reset();
             document.getElementById('editUserId').value = '';
-            document.querySelector('#createUserModal .modal-title').textContent = 'Créer un nouvel utilisateur';
+            document.querySelector('#createUserModal .modal-title').textContent = 'Créer un Nouvel Utilisateur';
             const submitBtn = document.querySelector('#createUserForm button[type="submit"]');
-            submitBtn.innerHTML = '<i class="fas fa-plus"></i> Créer utilisateur';
+            submitBtn.innerHTML = '<i class="fas fa-plus"></i> Créer Utilisateur';
         }
         // Si editId existe, on est en mode édition, ne pas réinitialiser
     }
 }
-// Ajoutez cette fonction pour tester
+
+// Fonction de test pour l'édition
 function testEditUser() {
     // Test avec le premier utilisateur du tableau
     const firstRow = document.querySelector('#usersTable tbody tr');
@@ -136,20 +141,19 @@ function testEditUser() {
     }
 }
 
-// Vous pouvez appeler testEditUser() dans la console pour tester
-        function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = 'none';
-        }
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
-        // User management functions
-        function viewUser(id) {
-            showNotification('Viewing user details for ID: ' + id);
-        }
+// Fonctions de gestion des utilisateurs
+function viewUser(id) {
+    showNotification('Affichage des détails utilisateur pour ID: ' + id);
+}
 
-   function editUser(id) {
+function editUser(id) {
     console.log('=== MODE EDITION ===');
     console.log('ID utilisateur à modifier:', id);
     
@@ -179,147 +183,164 @@ function testEditUser() {
     console.log('ID défini dans le champ caché:', document.getElementById('editUserId').value);
     
     // Changer le titre du modal et le texte du bouton
-    document.querySelector('#createUserModal .modal-title').textContent = 'Modifier l\'utilisateur';
+    document.querySelector('#createUserModal .modal-title').textContent = 'Modifier l\'Utilisateur';
     const submitBtn = document.querySelector('#createUserForm button[type="submit"]');
-    submitBtn.innerHTML = '<i class="fas fa-save"></i> Mettre à jour';
+    submitBtn.innerHTML = '<i class="fas fa-save"></i> Mettre à Jour';
     
     // Ouvrir le modal
     openModal('createUser');
 }
-        
-        // Role management functions
-        function editRole(id) {
-            showNotification('Editing role with ID: ' + id);
+
+// Fonctions de gestion des rôles
+function editRole(id) {
+    showNotification('Modification du rôle avec ID: ' + id);
+}
+
+function viewPermissions(id) {
+    showNotification('Affichage des permissions pour le rôle ID: ' + id);
+}
+
+// Fonctions de paramètres
+function saveModules() {
+    showNotification('Paramètres des modules enregistrés avec succès', 'success');
+}
+
+function saveLanguageSettings() {
+    const language = document.getElementById('systemLanguage').value;
+    const languageNames = {
+        'en': 'Anglais',
+        'fr': 'Français',
+        'es': 'Espagnol',
+        'de': 'Allemand',
+        'it': 'Italien',
+        'pt': 'Portugais'
+    };
+    showNotification('Paramètres de langue enregistrés. Langue système définie sur: ' + languageNames[language], 'success');
+}
+
+function saveProfile() {
+    showNotification('Profil mis à jour avec succès', 'success');
+}
+
+function changePassword() {
+    const current = document.getElementById('currentPassword').value;
+    const newPass = document.getElementById('newPassword').value;
+    const confirm = document.getElementById('confirmPassword').value;
+    
+    if (!current || !newPass || !confirm) {
+        showNotification('Veuillez remplir tous les champs de mot de passe', 'error');
+        return;
+    }
+    
+    if (newPass !== confirm) {
+        showNotification('Les nouveaux mots de passe ne correspondent pas', 'error');
+        return;
+    }
+    
+    showNotification('Mot de passe modifié avec succès', 'success');
+    document.getElementById('currentPassword').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('confirmPassword').value = '';
+}
+
+function changeAvatar() {
+    showNotification('La fonctionnalité de téléchargement d\'avatar serait implémentée ici');
+}
+
+function generateReport() {
+    const reportType = document.getElementById('reportType').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    
+    if (!startDate || !endDate) {
+        showNotification('Veuillez sélectionner une plage de dates', 'error');
+        return;
+    }
+    
+    const reportTypeNames = {
+        'user-activity': 'rapport d\'activité utilisateurs',
+        'system-usage': 'rapport d\'utilisation système',
+        'security-log': 'rapport journal de sécurité',
+        'performance': 'rapport de performance'
+    };
+    
+    showNotification('Génération du ' + reportTypeNames[reportType] + '...', 'success');
+    
+    // Simuler la génération de rapport
+    setTimeout(() => {
+        showNotification('Rapport généré et téléchargé', 'success');
+    }, 2000);
+}
+
+function saveSecuritySettings() {
+    showNotification('Paramètres de sécurité enregistrés avec succès', 'success');
+}
+
+function saveSessionSettings() {
+    showNotification('Paramètres de session enregistrés avec succès', 'success');
+}
+
+function exportData() {
+    showNotification('Exportation des données...', 'success');
+    setTimeout(() => {
+        showNotification('Données exportées avec succès', 'success');
+    }, 1500);
+}
+
+// Système de notifications
+function showNotification(message, type = 'success') {
+    const notification = document.getElementById('notification');
+    const messageEl = document.getElementById('notificationMessage');
+    
+    messageEl.textContent = message;
+    notification.className = `notification ${type}`;
+    notification.classList.add('show');
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+// Fonctionnalité de recherche
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const rows = document.querySelectorAll('#usersTable tbody tr');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
         }
+    });
+});
 
-        function viewPermissions(id) {
-            showNotification('Viewing permissions for role ID: ' + id);
-        }
+// Fermer les modales en cliquant à l'extérieur
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal')) {
+        e.target.classList.remove('active');
+    }
+});
 
-        // Settings functions
-        function saveModules() {
-            showNotification('Module settings saved successfully', 'success');
-        }
+// Initialiser le tableau de bord
+document.addEventListener('DOMContentLoaded', function() {
+    // Définir la date d'aujourd'hui par défaut pour la génération de rapports
+    const today = new Date().toISOString().split('T')[0];
+    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    
+    const startDate = document.getElementById('startDate');
+    const endDate = document.getElementById('endDate');
+    
+    if (startDate && endDate) {
+        startDate.value = weekAgo;
+        endDate.value = today;
+    }
+});
 
-        function saveLanguageSettings() {
-            const language = document.getElementById('systemLanguage').value;
-            showNotification('Language settings saved. System language set to: ' + language, 'success');
-        }
-
-        function saveProfile() {
-            showNotification('Profile updated successfully', 'success');
-        }
-
-        function changePassword() {
-            const current = document.getElementById('currentPassword').value;
-            const newPass = document.getElementById('newPassword').value;
-            const confirm = document.getElementById('confirmPassword').value;
-            
-            if (!current || !newPass || !confirm) {
-                showNotification('Please fill in all password fields', 'error');
-                return;
-            }
-            
-            if (newPass !== confirm) {
-                showNotification('New passwords do not match', 'error');
-                return;
-            }
-            
-            showNotification('Password changed successfully', 'success');
-            document.getElementById('currentPassword').value = '';
-            document.getElementById('newPassword').value = '';
-            document.getElementById('confirmPassword').value = '';
-        }
-
-        function changeAvatar() {
-            showNotification('Avatar upload functionality would be implemented here');
-        }
-
-        function generateReport() {
-            const reportType = document.getElementById('reportType').value;
-            const startDate = document.getElementById('startDate').value;
-            const endDate = document.getElementById('endDate').value;
-            
-            if (!startDate || !endDate) {
-                showNotification('Please select date range', 'error');
-                return;
-            }
-            
-            showNotification('Generating ' + reportType + ' report...', 'success');
-            
-            // Simulate report generation
-            setTimeout(() => {
-                showNotification('Report generated and downloaded', 'success');
-            }, 2000);
-        }
-
-        function saveSecuritySettings() {
-            showNotification('Security settings saved successfully', 'success');
-        }
-
-        function saveSessionSettings() {
-            showNotification('Session settings saved successfully', 'success');
-        }
-
-        function exportData() {
-            showNotification('Exporting data...', 'success');
-            setTimeout(() => {
-                showNotification('Data exported successfully', 'success');
-            }, 1500);
-        }
-
-        // Notification system
-        function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
-            const messageEl = document.getElementById('notificationMessage');
-            
-            messageEl.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const rows = document.querySelectorAll('#usersTable tbody tr');
-            
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        });
-
-        // Close modals when clicking outside
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal')) {
-                e.target.classList.remove('active');
-            }
-        });
-
-        // Initialize the dashboard
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set today's date as default for report generation
-            const today = new Date().toISOString().split('T')[0];
-            const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-            
-            const startDate = document.getElementById('startDate');
-            const endDate = document.getElementById('endDate');
-            
-            if (startDate && endDate) {
-                startDate.value = weekAgo;
-                endDate.value = today;
-            }
-            
-            
-        });
-  
-  window.addEventListener("load", function() {
-    document.getElementById("loader").classList.add("hidden");
-  });
+window.addEventListener("load", function() {
+    const loader = document.getElementById("loader");
+    if (loader) {
+        loader.classList.add("hidden");
+    }
+});

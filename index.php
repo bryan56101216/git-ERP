@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HyFinance - Financial And Marketing Advisory</title>
+    <title>HyFinance - Conseil Financier et Marketing</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> 
     <link rel="shortcut icon" href="image/admin.png" type="image/x-icon">
 <link rel="stylesheet" href="styles.css">
@@ -17,7 +17,7 @@
                 <span class="span"><i class="fas fa-envelope"></i> contact@erpvision.com</span>
             </div>
             <div class="uni">
-                <span>Follow Us!</span>
+                <span>Suivez-nous !</span>
                 <div class="icon-sociaux">
                     <a href="http://web.facebook.com/profile.php?id=100084160735715&locale=fr_FR"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://x.com/erpvision07"><i class="fab fa-twitter"></i></a>
@@ -34,19 +34,19 @@
     <header class="main-header">
         <div class="container">
             <div class="logo">
-                <a href="#contact"><img src="image/logo8.png" alt="" ></a>
+                <a href="#contact"><img src="image/logo10.png" alt="" ></a>
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="#home">HOME</a></li>
+                    <li><a href="#home">ACCUEIL</a></li>
                     <li><a href="#services">SERVICES</a></li>
-                    <li><a href="#About us">ABOUT US</a></li>
-                    <li><a href="#cases">CASES</a></li>
+                    <li><a href="#About us">À PROPOS</a></li>
+                    <li><a href="#cases">CAS</a></li>
                     <li><a href="#pages">PAGES</a></li>
                     <li><a href="#contact">CONTACT</a></li>
                 </ul>
             </nav>
-            <a href="Authentifier/connexion.php" class="get-started-btn">GET STARTED</a>
+            <a href="Authentifier/connexion.php" class="get-started-btn">COMMENCER</a>
             
               <script>
     if (window.history && window.history.replaceState) {
@@ -60,9 +60,9 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <h1>Financial And Marketing Advisory</h1>
-                <p>Get the advice-based Financial Advisor for marketing consultancy, Business and Outsourcing field. We are the best guys.</p>
-                <a href="#" class="contact-us-btn">CONTACT US</a>
+                <h1>Conseil Marketing</h1>
+                <p>Obtenez les conseils d'un Conseiller Financier pour le conseil en marketing, les affaires et l'externalisation. Nous sommes les meilleurs.</p>
+                <a href="#" class="contact-us-btn">CONTACTER-NOUS</a>
             </div>
         </div>
     </section>
@@ -75,27 +75,27 @@
                     <div class="service-icon">
                         <i class="fas fa-lightbulb"></i>
                     </div>
-                    <h3>Innovative Solutions</h3>
-                    <p>We bring the right people together to challenge established thinking and drive transformation continuously.</p>
-                    <a href="Authentifier/connexion.php" class="read-more-btn">READ MORE →</a>
+                    <h3>Solutions Innovantes</h3>
+                    <p>Nous rassemblons les bonnes personnes pour remettre en question la pensée établie et conduire la transformation en continu.</p>
+                    <a href="Authentifier/connexion.php" class="read-more-btn">LIRE PLUS →</a>
                 </div>
 
                 <div class="service-card ">
                     <div class="service-icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h3>Professional Team</h3>
-                    <p>We bring the right people together to challenge established thinking and drive transformation in-house business.</p>
-                    <a href="Authentifier/connexion.php" class="read-more-btn">READ MORE →</a>
+                    <h3>Équipe Professionnelle</h3>
+                    <p>Nous rassemblons les bonnes personnes pour remettre en question la pensée établie et conduire la transformation des affaires internes.</p>
+                    <a href="Authentifier/connexion.php" class="read-more-btn">LIRE PLUS →</a>
                 </div>
 
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-headset"></i>
                     </div>
-                    <h3>24/7 Support</h3>
-                    <p>We bring the right people together to challenge established thinking and drive transformation continuously.</p>
-                    <a href="Authentifier/connexion.php" class="read-more-btn">READ MORE →</a>
+                    <h3>Support 24/7</h3>
+                    <p>Nous rassemblons les bonnes personnes pour remettre en question la pensée établie et conduire la transformation en continu.</p>
+                    <a href="Authentifier/connexion.php" class="read-more-btn">LIRE PLUS →</a>
                 </div>
             </div>
         </div>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="stat-content">
                             <h3>25</h3>
-                            <p>Years of Experience</p>
+                            <p>Années d'Expérience</p>
                         </div>
                     </div>
                     <div class="stat-item">
@@ -122,18 +122,18 @@
                         </div>
                         <div class="stat-content">
                             <h3>350</h3>
-                            <p>Completed Projects</p>
+                            <p>Projets Terminés</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="about-content">
-                <h4>About Us</h4>
-                <h2>Discover The World of Financial Planner</h2>
-                <p>We bring the right people together to challenge established thinking and drive transformation. We will bring the best.</p>
-                <p>Values and Governance, from the capital level, Separated they live in Bookmarksgrove right at the coast of The Life Holy, to bring the best solution to the end user.</p>
+                <h4>À Propos de Nous</h4>
+                <h2>Découvrez le Monde du Planificateur Financier</h2>
+                <p>Nous rassemblons les bonnes personnes pour remettre en question la pensée établie et conduire la transformation. Nous apporterons le meilleur.</p>
+                <p>Valeurs et Gouvernance, du niveau capital, Séparés ils vivent à Bookmarksgrove juste sur la côte de The Life Holy, pour apporter la meilleure solution à l'utilisateur final.</p>
 
-                <a href="Authentifier/connexion.php" class="read-more">READ MORE</a>
+                <a href="Authentifier/connexion.php" class="read-more">LIRE PLUS</a>
             </div>
         </div>
     </section>
@@ -141,42 +141,42 @@
     <!-- Services Detail Section -->
     <section class="services-detail" id="cases">
         <div class="container">
-            <h4 class="section-title">Our Services</h4>
-            <h2 class="section-heading">What We Offer</h2>
-            <p class="section-description">We bring the right people together to challenge established thinking and drive long term finance decisions.</p>
-             <a href="Authentifier/connexion.php" class="read-more" style="margin-bottom: 30px;">VIEW ALL</a>
+            <h4 class="section-title">Nos Services</h4>
+            <h2 class="section-heading">Ce Que Nous Offrons</h2>
+            <p class="section-description">Nous rassemblons les bonnes personnes pour remettre en question la pensée établie et conduire les décisions financières à long terme.</p>
+             <a href="Authentifier/connexion.php" class="read-more" style="margin-bottom: 30px;">VOIR TOUT</a>
             <div class="services-detail-grid">
                 <div class="services-left">
                     <div class="service-detail-card">
                         <div class="service-detail-icon">
                             <i class="fas fa-chart-bar"></i>
                         </div>
-                        <h3>Manage Investment</h3>
-                        <p>We bring the right people together to challenge established thinking and drive transformation.</p>
+                        <h3>Gestion d'Investissement</h3>
+                        <p>Nous rassemblons les bonnes personnes pour remettre en question la pensée établie et conduire la transformation.</p>
                     </div>
 
                     <div class="service-detail-card">
                         <div class="service-detail-icon">
                             <i class="fas fa-clipboard-check"></i>
                         </div>
-                        <h3>Audit & Assurance</h3>
-                        <p>We bring the right people together to challenge established thinking and drive transformation.</p>
+                        <h3>Audit et Assurance</h3>
+                        <p>Nous rassemblons les bonnes personnes pour remettre en question la pensée établie et conduire la transformation.</p>
                     </div>
 
                     <div class="service-detail-card">
                         <div class="service-detail-icon">
                             <i class="fas fa-calculator"></i>
                         </div>
-                        <h3>Financial Plan</h3>
-                        <p>We bring the right people together to challenge established thinking and drive transformation.</p>
+                        <h3>Plan Financier</h3>
+                        <p>Nous rassemblons les bonnes personnes pour remettre en question la pensée établie et conduire la transformation.</p>
                     </div>
 
                     <div class="service-detail-card">
                         <div class="service-detail-icon">
                             <i class="fas fa-chart-line"></i>
                         </div>
-                        <h3>Profit Planning</h3>
-                        <p>We bring the right people together to challenge established thinking and drive transformation.</p>
+                        <h3>Planification des Bénéfices</h3>
+                        <p>Nous rassemblons les bonnes personnes pour remettre en question la pensée établie et conduire la transformation.</p>
                     </div>
                 </div>
 
@@ -184,9 +184,9 @@
                     <div class="service-detail-icon">
                         <i class="fas fa-file-alt"></i>
                     </div>
-                    <h3>Financial Report</h3>
-                    <p>We bring the right people together to challenge established thinking and drive transformation.</p>
-                    <a href="Authentifier/connexion.php" class="view-all-btn">VIEW ALL</a>
+                    <h3>Rapport Financier</h3>
+                    <p>Nous rassemblons les bonnes personnes pour remettre en question la pensée établie et conduire la transformation.</p>
+                    <a href="Authentifier/connexion.php" class="view-all-btn">VOIR TOUT</a>
                 </div>
             </div>
         </div>
@@ -195,16 +195,16 @@
   <div class="footer-container" id="pages">
     <div class="footer-left">
       <h3>ERP Vision</h3>
-      <p>Services designed for your comfort</p>
+      <p>Services conçus pour votre confort</p>
     </div>
     <div class="footer-links">
-      <a href="#home">Home</a>
-      <a href="#about us">About</a>
+      <a href="#home">Accueil</a>
+      <a href="#about us">À Propos</a>
       <a href="#services">Services</a>
       <a href="#contact">Contact</a>
     </div>
     <div class="footer-right">
-      <p>&copy; 2025 ERP Vision - All rights reserved</p>
+      <p>&copy; 2025 ERP Vision - Tous droits réservés</p>
     </div>
   </div>
 </footer>

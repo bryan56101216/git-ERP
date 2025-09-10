@@ -11,7 +11,7 @@ if (!$_SESSION['nom']) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marketing Agent Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
@@ -63,18 +63,8 @@ if (!$_SESSION['nom']) {
                 </div>
                 <div class="header-right">
                     <div class="user-profile">
-                        <div class="user-avatar">
-                        <?php
-                            $noms = explode(' ', trim($_SESSION['nom']));
-                            if (count($noms) >= 2) {
-                                // Prend la première lettre de chaque nom
-                                echo strtoupper(substr($noms[0], 0, 1) . substr($noms[1], 0, 1));
-                            } else {
-                                // Prend la première lettre du nom
-                                echo strtoupper(substr($noms[0], 0, 1));
-                            }
-                        ?>
-                    </div>
+                        <div class="user-avatar">MA</div>
+                        <div>
                             <div style="font-weight: 600;"><?php echo $_SESSION['nom']; ?></div>
                             <div style="font-size: 12px; color: #718096;"><?php echo $_SESSION['titre']; ?></div>
                         </div>
@@ -155,7 +145,7 @@ if (!$_SESSION['nom']) {
             <button class="btn-primary" onclick="updateMissionStatus()">Update Mission</button>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="script1.js"></script>
 
 </body>
 </html>

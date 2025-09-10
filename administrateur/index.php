@@ -1,12 +1,8 @@
 <?php
 session_start();
 
-   
-
 require("../Authentifier/bd.php");
 
-
-   
 $recup= $access->prepare("SELECT * FROM administrateurs WHERE nom=?");
 $recup->execute([$_SESSION['nom']]);
 
@@ -14,9 +10,8 @@ if ($recup->rowCount() > 0) {
     $info= $recup->fetch(PDO::FETCH_ASSOC);
     //console.log("success");
 }
-  require("../Authentifier/utilisateurs.php");
-     
-     $Utilisateur=afficher();
+require("../Authentifier/utilisateurs.php");
+$Utilisateur=afficher();
 
 $con= new PDO('mysql:host=127.0.0.1;dbname=erpvision','root','');
 if(isset($_POST['valider'])){
@@ -93,17 +88,17 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
     $insert->execute([$reportType, $startDate, $endDate, $createdBy]);
     $message = "Le rapport a été enregistré avec succès.";
 }
-  if (!$_SESSION['nom']) {
+if (!$_SESSION['nom']) {
     header("Location: ../index.php");
-  }
+}
 
-  ?>
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Admin Dashboard</title>
+    <title>Tableau de Bord Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -118,31 +113,31 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
             <nav class="nav-menu">
                 <a href="#" class="nav-item active" onclick="showSection('users')">
                     <i class="fas fa-users"></i>
-                    <span>User Management</span>
+                    <span>Gestion des Utilisateurs</span>
                 </a>
                 <a href="#" class="nav-item" onclick="showSection('roles')">
                     <i class="fas fa-shield-alt"></i>
-                    <span>Roles & Permissions</span>
+                    <span>Rôles et Permissions</span>
                 </a>
                 <a href="#" class="nav-item" onclick="showSection('modules')">
                     <i class="fas fa-cogs"></i>
-                    <span>System Modules</span>
+                    <span>Modules Système</span>
                 </a>
                 <a href="#" class="nav-item" onclick="showSection('settings')">
                     <i class="fas fa-globe"></i>
-                    <span>Language Settings</span>
+                    <span>Paramètres Langue</span>
                 </a>
                 <a href="#" class="nav-item" onclick="showSection('profile')">
                     <i class="fas fa-user-circle"></i>
-                    <span>Profile Settings</span>
+                    <span>Paramètres Profil</span>
                 </a>
                 <a href="#" class="nav-item" onclick="showSection('reports')">
                     <i class="fas fa-chart-line"></i>
-                    <span>Reports</span>
+                    <span>Rapports</span>
                 </a>
                  <a href="../Authentifier/deconnexion.php"  class="nav-item"  style="text-decoration:none;">
                     <i class="fas fa-sign-out-alt"></i>
-                    <span>Log out</span>
+                    <span>Déconnexion</span>
                 </a>
             </nav>  
         </div>
@@ -156,14 +151,14 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                 </button>
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search users, roles, or settings..." id="searchInput">
+                    <input type="text" placeholder="Rechercher des utilisateurs, rôles ou paramètres..." id="searchInput">
                 </div>
                 <div class="header-actions">
                     <button class="btn btn-secondary" onclick="exportData()">
-                        <i class="fas fa-download"></i> Export Data
+                        <i class="fas fa-download"></i> Exporter Données
                     </button>
                     <button type="button" class="btn btn-primary" onclick="openModal('createUser')">
-                        <i class="fas fa-plus"></i> Create User
+                        <i class="fas fa-plus"></i> Créer Utilisateur
                     </button>
                     <div class="header-right">
                     <div class="user-profile">
@@ -194,54 +189,54 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                 <!-- User Management Section -->
                 <div id="users-section" class="content-section">
                     <div class="content-header">
-                        <h1 class="content-title">User Management</h1>
+                        <h1 class="content-title">Gestion des Utilisateurs</h1>
                     </div>
 
                     <div class="stats-grid">
                         <div class="stat-card">
                             <div class="stat-number">247</div>
-                            <div class="stat-label">Total Users</div>
+                            <div class="stat-label">Total Utilisateurs</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-number">189</div>
-                            <div class="stat-label">Active Users</div>
+                            <div class="stat-label">Utilisateurs Actifs</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-number">12</div>
-                            <div class="stat-label">New This Month</div>
+                            <div class="stat-label">Nouveaux ce Mois</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-number">5</div>
-                            <div class="stat-label">Pending Approval</div>
+                            <div class="stat-label">En Attente d'Approbation</div>
                         </div>
                     </div>
 
                     <div class="tabs">
-                        <button class="tab active" onclick="switchTab('all-users')">All Users</button>
-                        <button class="tab" onclick="switchTab('project-manager')">Project Managers</button>
-                        <button class="tab" onclick="switchTab('marketing-agent')">Marketing Agent</button>
-                        <button class="tab" onclick="switchTab('accountant')">Accountants</button>
+                        <button class="tab active" onclick="switchTab('all-users')">Tous les Utilisateurs</button>
+                        <button class="tab" onclick="switchTab('project-manager')">Chefs de Projet</button>
+                        <button class="tab" onclick="switchTab('marketing-agent')">Agents Marketing</button>
+                        <button class="tab" onclick="switchTab('accountant')">Comptables</button>
                         <button class="tab" onclick="switchTab('customer')">Clients</button>
                     </div>
 
                     <div class="table-container">
                         <div class="table-header">
-                            <h3 class="table-title">User Directory</h3>
+                            <h3 class="table-title">Répertoire des Utilisateurs</h3>
                             <div class="table-filters">
-                                <button class="filter-btn active" onclick="filterUsers('all')">All</button>
-                                <button class="filter-btn" onclick="filterUsers('active')">Active</button>
-                                <button class="filter-btn" onclick="filterUsers('inactive')">Inactive</button>
-                                <button class="filter-btn" onclick="filterUsers('pending')">Pending</button>
+                                <button class="filter-btn active" onclick="filterUsers('all')">Tous</button>
+                                <button class="filter-btn" onclick="filterUsers('active')">Actifs</button>
+                                <button class="filter-btn" onclick="filterUsers('inactive')">Inactifs</button>
+                                <button class="filter-btn" onclick="filterUsers('pending')">En Attente</button>
                             </div>
                         </div>
                         <table id="usersTable">
                             <thead>
                                 <tr>
-                                     <th>N¤</th>
-                                    <th>Name</th>
-                                    <th>Role</th>
+                                     <th>N°</th>
+                                    <th>Nom</th>
+                                    <th>Rôle</th>
                                     <th>Email</th>
-                                    <th>Status</th>
+                                    <th>Statut</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -276,27 +271,27 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                 <!-- Roles & Permissions Section -->
                 <div id="roles-section" class="content-section hidden">
                     <div class="content-header">
-                        <h1 class="content-title">Roles & Permissions</h1>
+                        <h1 class="content-title">Rôles et Permissions</h1>
                     </div>
                     <div class="table-container">
                         <div class="table-header">
-                            <h3 class="table-title">System Roles</h3>
+                            <h3 class="table-title">Rôles du Système</h3>
                         </div>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Role Name</th>
-                                    <th>Users</th>
+                                    <th>Nom du Rôle</th>
+                                    <th>Utilisateurs</th>
                                     <th>Permissions</th>
-                                    <th>Created</th>
+                                    <th>Créé</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><i class="fas fa-crown" style="color: #f39c12; margin-right: 10px;"></i>Administrator</td>
+                                    <td><i class="fas fa-crown" style="color: #f39c12; margin-right: 10px;"></i>Administrateur</td>
                                     <td>3</td>
-                                    <td>Full Access</td>
+                                    <td>Accès Complet</td>
                                     <td>Jan 2024</td>
                                     <td>
                                         <button class="action-btn btn-edit" onclick="openModal('createRole')">
@@ -305,9 +300,9 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fas fa-project-diagram" style="color: #3498db; margin-right: 10px;"></i>Project Manager</td>
+                                    <td><i class="fas fa-project-diagram" style="color: #3498db; margin-right: 10px;"></i>Chef de Projet</td>
                                     <td>15</td>
-                                    <td>Project Management, Team Access</td>
+                                    <td>Gestion de Projet, Accès Équipe</td>
                                     <td>Jan 2024</td>
                                     <td>
                                         <button class="action-btn btn-edit" onclick="openModal('createRole')">
@@ -316,9 +311,9 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fas fa-bullhorn" style="color: #e74c3c; margin-right: 10px;"></i>Marketing Agent</td>
+                                    <td><i class="fas fa-bullhorn" style="color: #e74c3c; margin-right: 10px;"></i>Agent Marketing</td>
                                     <td>45</td>
-                                    <td>Campaign Management, Analytics</td>
+                                    <td>Gestion Campagnes, Analyses</td>
                                     <td>Jan 2024</td>
                                     <td>
                                         <button class="action-btn btn-edit" onclick="openModal('createRole')">
@@ -329,7 +324,7 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                                 <tr>
                                     <td><i class="fas fa-user" style="color: #95a5a6; margin-right: 10px;"></i>Client</td>
                                     <td>89</td>
-                                    <td>View Projects, Reports</td>
+                                    <td>Voir Projets, Rapports</td>
                                     <td>Jan 2024</td>
                                     <td>
                                         <button class="action-btn btn-edit" onclick="openModal('createRole')">
@@ -338,9 +333,9 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fas fa-calculator" style="color: #27ae60; margin-right: 10px;"></i>Accountant</td>
+                                    <td><i class="fas fa-calculator" style="color: #27ae60; margin-right: 10px;"></i>Comptable</td>
                                     <td>8</td>
-                                    <td>Financial Reports, Billing</td>
+                                    <td>Rapports Financiers, Facturation</td>
                                     <td>Jan 2024</td>
                                     <td>
                                         <button class="action-btn btn-edit" onclick="openModal('createRole')">
@@ -357,47 +352,47 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                 <!-- System Modules Section -->
                 <div id="modules-section" class="content-section hidden">
                     <div class="content-header">
-                        <h1 class="content-title">System Modules</h1>
+                        <h1 class="content-title">Modules Système</h1>
                     </div>
                     <div class="setting-card">
-                        <h3><i class="fas fa-puzzle-piece"></i> Module Configuration</h3>
-                        <p>Enable or disable system modules based on your agency's needs.</p>
+                        <h3><i class="fas fa-puzzle-piece"></i> Configuration des Modules</h3>
+                        <p>Activez ou désactivez les modules système selon les besoins de votre agence.</p>
                         <div class="checkbox-group">
                             <div class="checkbox-item">
                                 <input type="checkbox" id="module-projects" checked>
-                                <label for="module-projects"><i class="fas fa-project-diagram"></i> Project Management</label>
+                                <label for="module-projects"><i class="fas fa-project-diagram"></i> Gestion de Projets</label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="module-campaigns" checked>
-                                <label for="module-campaigns"><i class="fas fa-bullhorn"></i> Campaign Management</label>
+                                <label for="module-campaigns"><i class="fas fa-bullhorn"></i> Gestion de Campagnes</label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="module-finance" checked>
-                                <label for="module-finance"><i class="fas fa-dollar-sign"></i> Financial Management</label>
+                                <label for="module-finance"><i class="fas fa-dollar-sign"></i> Gestion Financière</label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="module-analytics" checked>
-                                <label for="module-analytics"><i class="fas fa-chart-bar"></i> Analytics & Reports</label>
+                                <label for="module-analytics"><i class="fas fa-chart-bar"></i> Analyses et Rapports</label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="module-crm" checked>
-                                <label for="module-crm"><i class="fas fa-handshake"></i> Customer Relations</label>
+                                <label for="module-crm"><i class="fas fa-handshake"></i> Relations Clients</label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="module-inventory">
-                                <label for="module-inventory"><i class="fas fa-boxes"></i> Inventory Management</label>
+                                <label for="module-inventory"><i class="fas fa-boxes"></i> Gestion d'Inventaire</label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="module-hr">
-                                <label for="module-hr"><i class="fas fa-users-cog"></i> Human Resources</label>
+                                <label for="module-hr"><i class="fas fa-users-cog"></i> Ressources Humaines</label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="module-support" checked>
-                                <label for="module-support"><i class="fas fa-life-ring"></i> Support Tickets</label>
+                                <label for="module-support"><i class="fas fa-life-ring"></i> Tickets de Support</label>
                             </div>
                         </div>
                         <button class="btn btn-primary" style="margin-top: 20px;" onclick="saveModules()">
-                            <i class="fas fa-save"></i> Save Module Settings
+                            <i class="fas fa-save"></i> Enregistrer Paramètres Modules
                         </button>
                     </div>
                 </div>
@@ -405,52 +400,52 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                 <!-- Language Settings Section -->
                 <div id="settings-section" class="content-section hidden">
                     <div class="content-header">
-                        <h1 class="content-title">Language Settings</h1>
+                        <h1 class="content-title">Paramètres de Langue</h1>
                     </div>
                     <div class="setting-card">
-                        <h3><i class="fas fa-globe"></i> System Language Configuration</h3>
+                        <h3><i class="fas fa-globe"></i> Configuration de Langue du Système</h3>
                         <div class="form-group">
-                            <label class="form-label">Default System Language</label>
+                            <label class="form-label">Langue Par Défaut du Système</label>
                             <select class="form-select" id="systemLanguage">
-                                <option value="en"> English</option>
-                                <option value="fr"> French</option>
-                                <option value="es"> Spanish</option>
-                                <option value="de"> German</option>
-                                <option value="it"> Italian</option>
-                                <option value="pt"> Portuguese</option>
+                                <option value="en">🇺🇸 Anglais</option>
+                                <option value="fr" selected>🇫🇷 Français</option>
+                                <option value="es">🇪🇸 Espagnol</option>
+                                <option value="de">🇩🇪 Allemand</option>
+                                <option value="it">🇮🇹 Italien</option>
+                                <option value="pt">🇵🇹 Portugais</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Available Languages for Users</label>
+                            <label class="form-label">Langues Disponibles pour les Utilisateurs</label>
                             <div class="checkbox-group">
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="lang-en" checked>
-                                    <label for="lang-en">English</label>
+                                    <label for="lang-en">Anglais</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="lang-fr" checked>
-                                    <label for="lang-fr">French</label>
+                                    <label for="lang-fr">Français</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="lang-es">
-                                    <label for="lang-es">Spanish</label>
+                                    <label for="lang-es">Espagnol</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="lang-de">
-                                    <label for="lang-de">German</label>
+                                    <label for="lang-de">Allemand</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="lang-it">
-                                    <label for="lang-it">Italian</label>
+                                    <label for="lang-it">Italien</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="lang-pt">
-                                    <label for="lang-pt">Portuguese</label>
+                                    <label for="lang-pt">Portugais</label>
                                 </div>
                             </div>
                         </div>
                         <button class="btn btn-primary" onclick="saveLanguageSettings()">
-                            <i class="fas fa-save"></i> Save Language Settings
+                            <i class="fas fa-save"></i> Enregistrer Paramètres de Langue
                         </button>
                     </div>
                 </div>
@@ -458,7 +453,7 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                 <!-- Profile Settings Section -->
                 <div id="profile-section" class="content-section hidden">
                     <div class="content-header">
-                        <h1 class="content-title">Profile Settings</h1>
+                        <h1 class="content-title">Paramètres du Profil</h1>
                     </div>
                     <div class="profile-section">
                         <div class="profile-card">
@@ -474,52 +469,52 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                             }
                         ?>
                     </div>
-                            <h3 style="margin-bottom: 4%;">Administrator</h3>
+                            <h3 style="margin-bottom: 4%;">Administrateur</h3>
                             <p><?php echo $info['nom'] ?></p>
                         </div>
                         <div class="setting-card">
-                            <h3><i class="fas fa-user-edit"></i> Personal Information</h3>
+                            <h3><i class="fas fa-user-edit"></i> Informations Personnelles</h3>
                             <form method="POST">
                             <div class="form-group">
-                                <label class="form-label">Full Name</label>
+                                <label class="form-label">Nom Complet</label>
                                 <input type="text" class="form-input" value="<?php echo $info['nom'] ?>" id="fullName"name="fullName">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Email Address</label>
+                                <label class="form-label">Adresse Email</label>
                                 <input type="email" class="form-input" value="<?php echo $info['email'] ?>" id="email" name="email">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Phone Number</label>
+                                <label class="form-label">Numéro de Téléphone</label>
                                 <input type="tel" class="form-input" value="<?php echo $info['numero'] ?>" id="phone" name="phone">
                             </div>
 
                             <button type="submit" name="saveProfile" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Save Profile
+                                <i class="fas fa-save"></i> Enregistrer Profil
                             </button>
                             </form>
                         </div>
                     </div>
                     <div class="setting-card">
-                        <h3><i class="fas fa-key"></i> Password & Security</h3>
+                        <h3><i class="fas fa-key"></i> Mot de Passe et Sécurité</h3>
                         <form method="POST">
                         <div class="form-group">
-                            <label class="form-label">Current Password</label>
+                            <label class="form-label">Mot de Passe Actuel</label>
                             <input type="password" class="form-input" id="currentPassword" name="currentPassword" required>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">New Password</label>
+                            <label class="form-label">Nouveau Mot de Passe</label>
                             <input type="password" class="form-input" id="newPassword" name="newPassword" required>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Confirm New Password</label>
+                            <label class="form-label">Confirmer le Nouveau Mot de Passe</label>
                             <input type="password" class="form-input" id="confirmPassword" name="confirmPassword" required>
                         </div>
                         <div class="checkbox-item" style="margin: 15px 0;">
                             <input type="checkbox" id="twoFactor" required>
-                            <label for="twoFactor">Enable Two-Factor Authentication</label>
+                            <label for="twoFactor">Activer l'Authentification à Deux Facteurs</label>
                         </div>
                         <button type="submit" name="changePassword" class="btn btn-primary">
-                            <i class="fas fa-lock"></i> Change Password
+                            <i class="fas fa-lock"></i> Changer Mot de Passe
                         </button>
                         <?php if(isset($message)) { echo '<p style="color:red;text-align:center; font-weight: bold;margin-top:2%">'.$message.'</p>'; } ?>
                     </form>
@@ -529,110 +524,61 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                 <!-- Reports Section -->
                 <div id="reports-section" class="content-section hidden">
                     <div class="content-header">
-                        <h1 class="content-title">System Reports</h1>
+                        <h1 class="content-title">Rapports Système</h1>
                     </div>
                     <div class="stats-grid">
                         <div class="stat-card">
                             <div class="stat-number">98.5%</div>
-                            <div class="stat-label">System Uptime</div>
+                            <div class="stat-label">Temps de Fonctionnement</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-number">1,247</div>
-                            <div class="stat-label">Total Logins Today</div>
+                            <div class="stat-label">Connexions Aujourd'hui</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">15.2GB</div>
-                            <div class="stat-label">Data Usage</div>
+                            <div class="stat-number">15.2Go</div>
+                            <div class="stat-label">Utilisation Données</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-number">0</div>
-                            <div class="stat-label">Security Alerts</div>
+                            <div class="stat-label">Alertes Sécurité</div>
                         </div>
                     </div>
                     <div class="setting-card">
-                        <h3><i class="fas fa-file-alt"></i> Generate Reports</h3>
+                        <h3><i class="fas fa-file-alt"></i> Générer des Rapports</h3>
                 <form method="POST" action="">
                     <div class="form-group">
-                        <label class="form-label">Report Type</label>
+                        <label class="form-label">Type de Rapport</label>
                         <select class="form-select" id="reportType" name="reportType" required>
-                            <option value="user-activity">User Activity Report</option>
-                            <option value="system-usage">System Usage Report</option>
-                            <option value="security-log">Security Log Report</option>
-                            <option value="performance">Performance Report</option>
+                            <option value="user-activity">Rapport d'Activité Utilisateurs</option>
+                            <option value="system-usage">Rapport d'Utilisation Système</option>
+                            <option value="security-log">Rapport Journal de Sécurité</option>
+                            <option value="performance">Rapport de Performance</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Date Range</label>
+                        <label class="form-label">Plage de Dates</label>
                         <div style="display: flex; gap: 10px;">
                             <input type="date" class="form-input" id="startDate" name="startDate" style="flex: 1;" required>
                             <input type="date" class="form-input" id="endDate" name="endDate" style="flex: 1;" required>
                         </div>
                     </div>
                     <button class="btn btn-primary" type="submit" name="valide">
-                        <i class="fas fa-file-download"></i> Generate Report
+                        <i class="fas fa-file-download"></i> Générer Rapport
                     </button>
                     <?php if(isset($message)) { echo '<p style="color:green;text-align:center; font-weight: bold;margin-top:2%">'.$message.'</p>'; } ?>
                 </form>
                     </div> 
                 </div>
-
-                <!-- Security Section
-                <div id="security-section" class="content-section hidden">
-                    <div class="content-header">
-                        <h1 class="content-title">Security Settings</h1>
-                    </div>
-                    <div class="setting-card">
-                        <h3><i class="fas fa-shield-alt"></i> Password Policy</h3>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="policy-length" checked>
-                                <label for="policy-length">Minimum 8 characters</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="policy-uppercase" checked>
-                                <label for="policy-uppercase">Require uppercase letters</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="policy-numbers" checked>
-                                <label for="policy-numbers">Require numbers</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="policy-special">
-                                <label for="policy-special">Require special characters</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Password Expiry (days)</label>
-                            <input type="number" class="form-input" value="90" id="passwordExpiry">
-                        </div>
-                        <button class="btn btn-primary" onclick="saveSecuritySettings()">
-                            <i class="fas fa-save"></i> Save Security Settings
-                        </button>
-                    </div>
-                    <div class="setting-card">
-                        <h3><i class="fas fa-clock"></i> Session Management</h3>
-                        <div class="form-group">
-                            <label class="form-label">Session Timeout (minutes)</label>
-                            <input type="number" class="form-input" value="60" id="sessionTimeout">
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="concurrent-sessions">
-                            <label for="concurrent-sessions">Allow concurrent sessions</label>
-                        </div>
-                        <button class="btn btn-primary" onclick="saveSessionSettings()">
-                            <i class="fas fa-save"></i> Save Session Settings
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!-- Create User Modal -->
     <div id="createUserModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Create New User</h3>
+                <h3 class="modal-title">Créer un Nouvel Utilisateur</h3>
                 <button class="close-btn" onclick="closeModal('createUserModal')">
                     <i class="fas fa-times"></i>
                 </button>
@@ -640,11 +586,11 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
             <form id="createUserForm" method="POST">
                  <input type="hidden" name="editUserId" id="editUserId">
                 <div class="form-group">
-                    <label class="form-label">Full Name</label>
+                    <label class="form-label">Nom Complet</label>
                     <input type="text" class="form-input" name="name" id="newUserName" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Email Address</label>
+                    <label class="form-label">Adresse Email</label>
                     <input type="email" class="form-input" name="email" id="newUserEmail" required>
                     <?php
                     if(isset($message)){
@@ -653,55 +599,55 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
                     ?>
                 </div>
                    <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-input" name="mdp" id="newUserName" required>
+                    <label class="form-label">Mot de Passe</label>
+                    <input type="password" class="form-input" name="mdp" id="newUserPassword" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Role</label>
+                    <label class="form-label">Rôle</label>
                     <select class="form-select" name="title" id="newUserRole" required>
-    <option value="">Select Role</option>
-    <option value="Project Manager">Project Manager</option>
-    <option value="Marketing Agent">Marketing Agent</option>
-    <option value="Accountant">Accountant</option>
-    <option value="Customer">Customer</option>
-</select>
+                        <option value="">Sélectionner Rôle</option>
+                        <option value="Chef de Projet">Chef de Projet</option>
+                        <option value="Agent Marketing">Agent Marketing</option>
+                        <option value="Comptable">Comptable</option>
+                        <option value="Client">Client</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Statut</label>
                     <select class="form-select" name="statut" id="newUserStatut" required>
-                        <option value="">Select statut</option>
-                        <option value="Active">Active</option>
-                        <option value="Inactive">Inactive</option>
-                        <option value="Pending">Pending</option>
+                        <option value="">Sélectionner statut</option>
+                        <option value="Actif">Actif</option>
+                        <option value="Inactif">Inactif</option>
+                        <option value="En Attente">En Attente</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Permissions</label>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="checkbox" name="permission" value="Read Access" id="perm-read">
-                            <label for="perm-read" value="Read Access">Read Access</label>
+                            <input type="checkbox" name="permission" value="Accès Lecture" id="perm-read">
+                            <label for="perm-read">Accès Lecture</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" name="permission" value="Write Access" id="perm-write">
-                            <label for="perm-write" value="Write Access" >Write Access</label>
+                            <input type="checkbox" name="permission" value="Accès Écriture" id="perm-write">
+                            <label for="perm-write">Accès Écriture</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" name="permission" value="Delete Access"  id="perm-delete">
-                            <label for="perm-delete" value="Delete Access">Delete Access</label>
+                            <input type="checkbox" name="permission" value="Accès Suppression" id="perm-delete">
+                            <label for="perm-delete">Accès Suppression</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" name="permission" value="Admin Access" id="perm-admin">
-                            <label for="perm-admin" value="Admin Access">Admin Access</label>
+                            <input type="checkbox" name="permission" value="Accès Admin" id="perm-admin">
+                            <label for="perm-admin">Accès Admin</label>
                         </div>
                     </div>
                 </div>
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <button type="button" class="btn btn-secondary" onclick="closeModal('createUserModal')">
-                        Cancel
+                        Annuler
                     </button>
                     <button type="submit" name="valider" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Create User
+                        <i class="fas fa-plus"></i> Créer Utilisateur
                     </button>
                 </div>
             </form>
@@ -712,51 +658,51 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
     <div id="createRoleModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Update Role</h3>
+                <h3 class="modal-title">Mettre à Jour le Rôle</h3>
                 <button class="close-btn" onclick="closeModal('createRoleModal')">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <form method="POST">
                 <div class="form-group">
-                    <label class="form-label">Role Name</label>
+                    <label class="form-label">Nom du Rôle</label>
                     <input type="text" class="form-input" name="role" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Permissions</label>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="checkbox" name="permission">
-                            <label for="role-user-management" value="User Management">User Management</label>
+                            <input type="checkbox" name="permission" id="role-user-management">
+                            <label for="role-user-management">Gestion des Utilisateurs</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox"  name="permission">
-                            <label for="role-project-management" value="Project Management">Project Management</label>
+                            <input type="checkbox" name="permission" id="role-project-management">
+                            <label for="role-project-management">Gestion de Projets</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" name="permission">
-                            <label for="role-financial-access" value="Financial Access">Financial Access</label>
+                            <input type="checkbox" name="permission" id="role-financial-access">
+                            <label for="role-financial-access">Accès Financier</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox"  name="permission">
-                            <label for="role-system-settings" value="System Settings">System Settings</label>
+                            <input type="checkbox" name="permission" id="role-system-settings">
+                            <label for="role-system-settings">Paramètres Système</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox"  name="permission">
-                            <label for="role-reports" value="Generate Reports">Generate Reports</label>
+                            <input type="checkbox" name="permission" id="role-reports">
+                            <label for="role-reports">Générer des Rapports</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox"  name="permission">
-                            <label for="role-campaigns" value="Campaign Management">Campaign Management</label>
+                            <input type="checkbox" name="permission" id="role-campaigns">
+                            <label for="role-campaigns">Gestion de Campagnes</label>
                         </div>
                     </div>
                 </div>
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <button type="button" class="btn btn-secondary" onclick="closeModal('createRoleModal')">
-                        Cancel
+                        Annuler
                     </button>
                     <button type="submit" class="btn btn-primary" name="valid_role">
-                        <i class="fas fa-plus"></i> Update Role
+                        <i class="fas fa-plus"></i> Mettre à Jour le Rôle
                     </button>
                 </div>
             </form>
@@ -770,4 +716,4 @@ if (isset($_POST['valide']) && isset($_POST['reportType'])) {
     <script src="scripts.js"></script>
    </body>
 </html>
-
+        
